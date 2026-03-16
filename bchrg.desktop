@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=BatteryCharge
+Comment=Charges the battery to a higher percentage
+Exec=sudo /home/USERNAME/Documents/Code/Macros/bchrg
+Terminal=false
+Type=Application
+Categories=Utility;
