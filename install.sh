@@ -1,40 +1,26 @@
 #!/usr/bin/env bash
 set -e
 
-INSTALL_DIR="$HOME/.local/bin"
+BIN="$HOME/.local/bin"
+DESKTOP="$HOME/.local/share/applications"
 
 echo "Installing bchrg..."
 
-mkdir -p "$INSTALL_DIR"
+# creating directories
+mkdir -p "$BIN" "$DESKTOP"
 
-cp bchrg "$INSTALL_DIR/bchrg"
-chmod +x "$INSTALL_DIR/bchrg"
+# install executable
+cp bchrg "$BIN/bchrg"
+chmod +x "$BIN/bchrg"
 
-echo "Installed to $INSTALL_DIR/bchrg"
-
-if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-    echo ""
-    echo "WARNING: ~/.local/bin is not in your PATH."
-    echo "Add this to your shell config:"
-    echo 'export PATH="$HOME/.local/bin:$PATH"'
-fi
-
-INSTALL_DIR="$HOME/.local/share/applications"
+echo "Installed to $BIN/bchrg"
 
 echo "Installing bchrg.desktop..."
 
-mkdir -p "$INSTALL_DIR"
+# install .desktop
+sed "s|{EXEC_PATH}|$BIN/bchrg|g" bchrg.desktop.template > "$DESKTOP/bchrg.desktop"
 
-cp bchrg.desktop "$INSTALL_DIR/bchrg.desktop"
-chmod +x "$INSTALL_DIR/bchrg.desktop"
-
-echo "Installed to $INSTALL_DIR/bchrg.desktop"
-
-if [[ ":$PATH:" != *":$HOME/.local/share/applications:"* ]]; then
-    echo ""
-    echo "WARNING: ~/.local/share/applications is not in your PATH."
-    echo "Add this to your shell config:"
-    echo 'export PATH="$HOME/.local/share/applications:$PATH"'
-fi
+echo "Installed to $DESKTOP/bchrg.desktop"
+update-desktop-database "$DESKTOP" || true
 
 echo "Done."
