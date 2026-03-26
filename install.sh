@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+# set variable to dir addr
 BIN="$HOME/.local/bin"
 DESKTOP="$HOME/.local/share/applications"
 
@@ -13,14 +14,15 @@ mkdir -p "$BIN" "$DESKTOP"
 cp bchrg "$BIN/bchrg"
 chmod +x "$BIN/bchrg"
 
-echo "Installed to $BIN/bchrg"
-
-echo "Installing bchrg.desktop..."
+echo "Installed bchrg to $BIN/bchrg"
 
 # install .desktop
-sed "s|{EXEC_PATH}|$BIN/bchrg|g" bchrg.desktop.template > "$DESKTOP/bchrg.desktop"
+sed "s|{EXEC_PATH}|$BIN/bchrg|g" bchrg.desktop > "$DESKTOP/bchrg.desktop"
 
-echo "Installed to $DESKTOP/bchrg.desktop"
+echo "Installed bchrg.desktop to $DESKTOP/bchrg.desktop"
+
+# updating desktop
 update-desktop-database "$DESKTOP" || true
+xdg-desktop-menu forceupdate || true
 
 echo "Done."

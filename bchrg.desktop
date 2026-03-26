@@ -2,7 +2,7 @@
 Version=1.0
 Name=BatteryCharge
 Comment=Charges the battery to a higher percentage
-Exec=sudo </path/to/file>
-Terminal=false
+Exec=pkexec {EXEC_PATH}
+Terminal=true
 Type=Application
 Categories=Utility;
